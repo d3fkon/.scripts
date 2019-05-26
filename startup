@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Android studio to open in a tiling manageer
+wmname LG3D
+
+# Start the Redshift Eye Candy Saver
+redshift& 
+echo "Redshift Started!"
+
+# start compton compositor
+compton -b > /dev/null 2>&1
+
+# Reload pywal config
+wal -R
+# Set the wallpaper and chage to the amazing theme
+# wal -i "$HOME/Pictures/Wallpapers/walli4.jpg" > /dev/null
+feh --bg-scale $HOME/Pictures/Wallpapers/actual.jpg
+
+# Start the beloved polybar
+# polybar -q example &
+
+# Start lemonbar
+$HOME/.scripts/baar

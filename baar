@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Import the colors
+. "${HOME}/.cache/wal/colors.sh"
+
+
+
+echo $(xrandr | grep eDP-1-1 | awk '{print $3}')
+
+if [[ $(xrandr | grep eDP-1-1 | awk '{print $3}') = "1366x768+0+0" ]]; then
+	$HOME/.scripts/ex/lemon.sh | bar -p -f Monaco-Regular-10 -f FontAwesome-13 -u 2 -o 0 -B "$color0" -F "$color8" -g 1326x30+15+5
+else
+	$HOME/.scripts/ex/lemon.sh | bar -p -f Monaco-Regular-10 -f FontAwesome-13 -u 2 -o 0 -B "$color0" -F "$color8" -g 1890x30+15+5
+
+fi
+
+exit 0

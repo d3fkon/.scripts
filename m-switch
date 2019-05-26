@@ -1,0 +1,68 @@
+#!/bin/bash
+
+monitor="EDP"
+EDP="eDP-1-1"
+
+
+function help() {
+	echo "
+		m-switch [OPTIONS]
+
+		Options:
+			1. --sw-off [monitor name]: Switch off the given monitor. Switches off eDP-1-1 by default. 
+			2. --sw-on [monitor name]: Switch on the given motitor. Switched on eDP-1-1 by default.
+			"
+}
+
+function switch_to_HDMI() {
+	xrandr --output eDP-1-1 --off
+	bspc monitor -g 1920x1080+0+0
+	$monitor="HDMI"
+}
+
+function switch_to_EDP() {
+	xrandr --output eDP-1-1 --auto
+	monitor="EDP"
+}
+
+if test $# -eq 0; then
+	help
+	exit 0
+fi
+while test $# -gt 0; do
+	case "$1" in
+		-h)  	
+			help
+			exit 0
+			;;
+		--sw-off)
+			shift
+			if test $# -eq 0; then
+				switch_to_HDMI $EDP
+			else
+				switch_to_HDMI $1
+			fi
+			shift
+			;;
+		--sw-on)
+			shift
+			if test $# -eq 0; then
+				switch_to_EDP $EDP
+			else
+				switch_to_EDP $1
+			fi
+			shift
+			;;
+		-b)
+			shift 
+			if test $# -eq 0; then
+				echo "Start lemonbar with laptop screen config"
+			fi
+			shift
+			;;
+		*)	
+			help
+			shift
+			;;
+	esac
+done

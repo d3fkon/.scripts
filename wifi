@@ -1,0 +1,38 @@
+#!/bin/bash
+
+if test $# -eq 0; then
+	echo "HELP"
+fi
+
+while test $# -gt 0; do
+	case $1 in 
+		-r)
+			sudo service network-manager restart && sudo systemctl start wpa_supplicant.service
+				
+			nmcli dev wifi
+			shift
+			exit 0
+			;;
+		-c)	shift
+			if test $# -ne 2; then
+				echo "error: wifi -c SSID password"
+				exit 0
+			fi
+			sudo systemctl start wpa_supplicant.service
+			nmcli dev wifi connect $1 password $2
+			shift
+			exit 0;
+			;;
+		
+		-l)
+			nmcli dev wifi
+			shift
+			exit 0;
+			;;
+		*)
+			echo "Wana connect to the wifi today?"
+			shift
+			;;
+	esac
+done
+

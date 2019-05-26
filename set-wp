@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Change the theme of the system
+wal -c -i $1 -n 
+
+# Set the wallpaper
+feh --bg-scale $1
+
+exit 0
+
+
